@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japan 2028 — F1 × Anime × Adventure</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif+JP:wght@300;400;700&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e8001d;
+    --red-dark: #a3001a;
+    --gold: #c8a84b;
+    --gold-light: #e8c86e;
+    --black: #0a0a0a;
+    --dark: #111318;
+    --panel: #161b22;
+    --border: #2a2f3a;
+    --text: #d8dde8;
+    --muted: #7a8194;
+    --white: #f0f3fa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: relative;
+    padding: 60px 40px 50px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(160deg, #0e0e18 0%, #0a0a0a 60%);
+    overflow: hidden;
+  }
+
+  header::before {
+    content: 'JAPAN';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 260px;
+    color: rgba(232,0,29,0.04);
+    letter-spacing: -10px;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .flag-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--red) 50%, transparent 50%);
+    background-size: 8px 4px;
+  }
+
+  header .kana {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 8px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8vw, 100px);
+    line-height: 0.9;
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+
+  header h1 span {
+    color: var(--red);
+  }
+
+  header .sub {
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .tags {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tag {
+    border: 1px solid var(--border);
+    padding: 4px 14px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .tag.accent { border-color: var(--red); color: var(--red); }
+  .tag.gold { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 58px);
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 32px;
+  }
+
+  /* ─── OVERVIEW GRID ─── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .stat-box {
+    background: var(--panel);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .stat-box .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-box .label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* ─── ITINERARY ─── */
+  .itinerary {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .day-card {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    transition: border-color 0.2s;
+    overflow: hidden;
+  }
+
+  .day-card:hover { border-color: var(--red); }
+
+  .day-num {
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    border-right: 1px solid var(--border);
+  }
+
+  .day-num .d {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .day-num .day-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .day-content {
+    padding: 20px 24px;
+  }
+
+  .day-content .city {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .day-content h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--white);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+  .day-content p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .day-content .badges {
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-size: 9px;
+    padding: 2px 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 0;
+  }
+
+  .badge.f1 { background: var(--red-dark); color: #ff9090; }
+  .badge.anime { background: #1a1060; color: #9090ff; }
+  .badge.park { background: #1a3a1a; color: #70c870; }
+  .badge.culture { background: #2a1a0a; color: #c89050; }
+  .badge.travel { background: #1a2030; color: #6090c0; }
+
+  /* ─── HIGHLIGHTS ─── */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .highlight-card {
+    background: var(--panel);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-card::before {
+    content: attr(data-icon);
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 40px;
+    opacity: 0.15;
+  }
+
+  .highlight-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .highlight-card .cat {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .highlight-card p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .highlight-card ul {
+    margin-top: 12px;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .highlight-card ul li {
+    font-size: 11px;
+    color: var(--text);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .highlight-card ul li::before {
+    content: '→';
+    color: var(--red);
+    font-size: 10px;
+  }
+
+  /* ─── BUDGET ─── */
+  .budget-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  @media (max-width: 700px) {
+    .budget-wrapper { grid-template-columns: 1fr; }
+  }
+
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .budget-table th {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--dark);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .budget-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    background: var(--panel);
+  }
+
+  .budget-table tr:hover td { background: #1d232d; }
+
+  .budget-table .amount {
+    text-align: right;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .budget-table .total-row td {
+    background: #1a0f00;
+    border-top: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-weight: bold;
+  }
+
+  .savings-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 32px;
+  }
+
+  .savings-panel h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+
+  .savings-tier {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .savings-tier:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .savings-tier .tier-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .savings-tier .amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .savings-tier.comfort .amount { color: var(--gold); }
+  .savings-tier.luxe .amount { color: #c080ff; }
+  .savings-tier.budget .amount { color: #60b060; }
+
+  .savings-tier .sub {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .savings-tier .per-person {
+    font-size: 11px;
+    color: var(--text);
+    margin-top: 6px;
+  }
+
+  /* ─── MONTHLY SAVE ─── */
+  .monthly-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 32px;
+  }
+
+  @media (max-width: 600px) {
+    .monthly-grid { grid-template-columns: 1fr; }
+  }
+
+  .monthly-box {
+    background: var(--panel);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .monthly-box .label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .monthly-box .amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    display: block;
+  }
+
+  .monthly-box .per {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .monthly-box .note {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .monthly-box.comfort .amount { color: var(--gold); }
+  .monthly-box.luxe .amount { color: #c080ff; }
+  .monthly-box.budget .amount { color: #60b060; }
+
+  /* ─── TIPS ─── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .tip-card {
+    background: var(--panel);
+    padding: 24px;
+  }
+
+  .tip-card .t-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: rgba(200,168,75,0.2);
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .tip-card h4 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .tip-card p {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+    padding-left: 24px;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(232,0,29,0.15);
+  }
+
+  .tl-item .t-when {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .tl-item h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .tl-item p {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 40px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  footer .jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 24px;
+    color: rgba(200,168,75,0.4);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0 32px;
+  }
+
+  .divider span {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    header { padding: 40px 24px 36px; }
+    .container { padding: 0 20px; }
+    section { padding: 40px 0; }
+    .budget-wrapper { grid-template-columns: 1fr; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-card, .highlight-card, .stat-box, .tip-card {
+    animation: fadeUp 0.4s ease both;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="flag-stripe"></div>
+  <div class="container">
+    <span class="kana">日 本 の 旅 — F1 × アニメ × 冒険</span>
+    <h1>JAPAN<br><span>2028</span></h1>
+    <p class="sub">3 Travellers · 15 Days · Full Coverage Plan</p>
+    <div class="tags">
+      <div class="tag accent">F1 @ Suzuka</div>
+      <div class="tag gold">Anime Deep Dive</div>
+      <div class="tag">Tokyo Disneyland</div>
+      <div class="tag">Universal Studios Japan</div>
+      <div class="tag">Budget Roadmap</div>
+    </div>
+  </div>
+</header>
+
+<!-- OVERVIEW STATS -->
+<section>
+  <div class="container">
+    <div class="section-label">Trip Overview</div>
+    <div class="overview-grid">
+      <div class="stat-box"><span class="num">15</span><span class="label">Total Days</span></div>
+      <div class="stat-box"><span class="num">3</span><span class="label">Travellers</span></div>
+      <div class="stat-box"><span class="num">5</span><span class="label">Cities</span></div>
+      <div class="stat-box"><span class="num">2</span><span class="label">Theme Parks</span></div>
+      <div class="stat-box"><span class="num">1</span><span class="label">F1 Race Weekend</span></div>
+      <div class="stat-box"><span class="num">~28</span><span class="label">Mo. Savings Period</span></div>
+    </div>
+
+    <p style="color:var(--muted); font-size:12px; max-width:700px; line-height:1.8;">
+      This plan targets <strong style="color:var(--text)">late March / early April</strong> — the sweet spot where cherry blossoms peak and the F1 Japanese Grand Prix takes place at Suzuka Circuit every year. Timing your trip around the race weekend weaves motorsport naturally into an already incredible journey. All budget figures are in <strong style="color:var(--text)">USD</strong> and assume a <strong style="color:var(--text)">mid-range "comfortable freedom"</strong> style — nice hotels, good food, no penny-pinching, generous shopping budget.
+    </p>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section>
+  <div class="container">
+    <div class="section-label">Day-by-Day Itinerary</div>
+    <div class="section-title">15-Day Masterplan</div>
+
+    <div class="itinerary">
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">1</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Tokyo — Arrival</span>
+          <h3>Land, Recover, Explore Shinjuku</h3>
+          <p>Arrive at Narita or Haneda. Get your IC card (Suica) and JR Pass sorted at the airport. Check in, drop bags. Evening walk through Shinjuku's neon maze — Kabukicho, Golden Gai. Ramen dinner. Jet lag is real; take it easy.</p>
+          <div class="badges"><span class="badge travel">Transit</span><span class="badge culture">First Night</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">2</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Tokyo — Anime Day 1</span>
+          <h3>Akihabara: The Holy Land</h3>
+          <p>Full day in Akihabara. Radio Kaikan multi-floor merch towers, AmiAmi figures, Mandarake complex for rare finds, Gachapon Hall with 500+ capsule machines. Try a maid cafe for the experience. Budget extra cash — you will spend it here.</p>
+          <div class="badges"><span class="badge anime">Anime</span><span class="badge anime">Shopping</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">3</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Tokyo — Anime Day 2</span>
+          <h3>Ikebukuro + Shibuya Pop Culture</h3>
+          <p>Morning: Animate Ikebukuro flagship (9 floors of anime goods, biggest in Japan). Sunshine City — Pokémon Center Mega Tokyo, One Piece Straw Hat Store, Ghibli Shop. Afternoon: Shibuya Cyberspace (Nintendo Store, Jump Shop, Pokémon Center). Don Quijote for quirky souvenirs.</p>
+          <div class="badges"><span class="badge anime">Anime</span><span class="badge anime">Shopping</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">4</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Tokyo — Theme Park Day</span>
+          <h3>Tokyo Disneyland</h3>
+          <p>Full day at Tokyo Disneyland in Urayasu. Famously well-run, even better than the US parks in many visitors' opinions. Book tickets in advance (Klook is the easiest method for international visitors). The park is compact enough to cover fully in one day if you're strategic.</p>
+          <div class="badges"><span class="badge park">Theme Park</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">5</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Tokyo — Culture</span>
+          <h3>Harajuku, Ghibli Museum, Odaiba</h3>
+          <p>Morning: Harajuku (Takeshita Street, Kiddy Land for character goods). Afternoon: Ghibli Museum in Mitaka — must book tickets 1 month in advance, no photos inside. Evening: Odaiba — life-sized Unicorn Gundam statue and light show at DiverCity, great waterfront views of the Rainbow Bridge.</p>
+          <div class="badges"><span class="badge anime">Anime</span><span class="badge culture">Culture</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">6</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Tokyo → Kyoto</span>
+          <h3>Shinkansen to the Ancient Capital</h3>
+          <p>Morning: Catch the Tokaido Shinkansen from Tokyo Station (~2h 15min to Kyoto). Arrive early afternoon. Check in and walk the Gion district at dusk — geisha territory, wooden machiya townhouses, stone lanterns. Dinner in Pontocho alley.</p>
+          <div class="badges"><span class="badge travel">Bullet Train</span><span class="badge culture">Culture</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">7</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Kyoto</span>
+          <h3>Fushimi Inari + Arashiyama</h3>
+          <p>Sunrise hike at Fushimi Inari — thousands of vermillion torii gates winding up a mountain (free, no tickets needed). Afternoon at Arashiyama: bamboo grove, Tenryu-ji garden, monkey park. This is classic Japan that photographs like a dream. Kyoto-style kaiseki dinner.</p>
+          <div class="badges"><span class="badge culture">Must-See Japan</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">8</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Kyoto → Nara Day Trip</span>
+          <h3>Ancient Temples + Free-Roaming Deer</h3>
+          <p>Day trip to Nara (30 min by express train). Todai-ji temple houses Japan's largest bronze Buddha. Over 1,000 wild sika deer roam free and will eat crackers from your hand. Afternoon return to Kyoto. Evening: Nishiki Market food walk — street food heaven.</p>
+          <div class="badges"><span class="badge culture">Culture</span><span class="badge culture">Day Trip</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">9</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Kyoto → Osaka</span>
+          <h3>Move to Osaka — Street Food Capital</h3>
+          <p>Short 15-min shinkansen hop (or cheap local train). Check into Osaka. Afternoon: Dotonbori — the neon-lit canal district, takoyaki, okonomiyaki, endless food stalls. Visit Osaka Castle. Evening: explore Shinsaibashi shopping street and Don Quijote's enormous Dotonbori branch.</p>
+          <div class="badges"><span class="badge travel">Transit</span><span class="badge culture">Food & Culture</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">10</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Osaka</span>
+          <h3>Universal Studios Japan — Nintendo + Wizarding World</h3>
+          <p>Full day at USJ. Super Nintendo World (Mario Kart: Bowser's Challenge, Yoshi's Adventure) and Donkey Kong Country are the crown jewels. The Wizarding World of Harry Potter is stunning. Buy tickets + Express Pass in advance — timed-entry slots for Nintendo World sell out by 10:30am on peak days. Book 60 days ahead when possible.</p>
+          <div class="badges"><span class="badge park">Theme Park</span><span class="badge anime">Nintendo World</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">11</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Osaka → Suzuka</span>
+          <h3>F1 Practice Day — Arrive at the Circuit</h3>
+          <p>Travel to Suzuka (about 1.5 hrs from Osaka by Kintetsu express + local train). Check into accommodation near the circuit — book 6–12 months ahead as everything fills up during race weekend. Afternoon: Free Practice sessions. The atmosphere at Suzuka is legendary — fans in costumes, incredible passion, iconic figure-8 layout. Fanzone exploration.</p>
+          <div class="badges"><span class="badge f1">F1</span><span class="badge f1">Practice</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">12</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Suzuka Circuit</span>
+          <h3>Qualifying Day — Feel the Speed</h3>
+          <p>Qualifying at Suzuka is a spectacle — cars pushing absolute limits through 130R and the S-Curves at full attack. The sound alone is worth the trip. Explore all grandstands and general admission areas. Visit the on-circuit amusement park and F1 merchandise village. Evening dinner in Suzuka city.</p>
+          <div class="badges"><span class="badge f1">F1</span><span class="badge f1">Qualifying</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">13</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Suzuka Circuit</span>
+          <h3>Race Day — Japanese Grand Prix 🏁</h3>
+          <p>The main event. 53 laps of one of F1's most beloved circuits. Suzuka fans are arguably the most passionate on the calendar — many arrive in full team gear, some in elaborate costumes. Grid walk access (if you have premium tickets) is unforgettable. Post-race podium celebrations, then head back toward Osaka or Tokyo.</p>
+          <div class="badges"><span class="badge f1">F1 RACE DAY</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">14</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Tokyo — Final Day</span>
+          <h3>Last Shopping Run + Shibuya Sky</h3>
+          <p>Shinkansen back to Tokyo. Final anime shopping sweep — Nakano Broadway for rare vintage finds and second-hand treasures at fairer prices than Akihabara. Shibuya Sky observation deck at sunset. Farewell dinner at a proper sushi counter or yakiniku grill. Pack carefully — luggage shipping (takuhaibin) to the airport is highly recommended for heavy bags.</p>
+          <div class="badges"><span class="badge anime">Shopping</span><span class="badge culture">Farewell</span></div>
+        </div>
+      </div>
+
+      <div class="day-card">
+        <div class="day-num"><span class="d">15</span><span class="day-label">Day</span></div>
+        <div class="day-content">
+          <span class="city">📍 Departure</span>
+          <h3>Fly Home</h3>
+          <p>Konbini breakfast — 7-Eleven onigiri and hot coffee, one final time. Head to Narita or Haneda. Note: Starting late 2026, Japan requires a visa-style travel authorization for many countries (similar to ESTA) — confirm your country's requirements before booking. Tax refunds move to an airport-based system from November 2026 onward, so factor that into your checkout process.</p>
+          <div class="badges"><span class="badge travel">Departure</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section>
+  <div class="container">
+    <div class="section-label">Must-See & Must-Do</div>
+    <div class="section-title">Highlight Reel</div>
+
+    <div class="highlights-grid">
+
+      <div class="highlight-card" data-icon="🏎️">
+        <span class="cat">F1 Experience</span>
+        <h3>Suzuka Circuit</h3>
+        <p>One of the greatest tracks ever built. A figure-8 layout with a crossover, legendary corners (130R, Spoon, S-Curves), and a fanbase that treats the race like a national celebration.</p>
+        <ul>
+          <li>Book grandstand tickets 6–12 months early</li>
+          <li>General Admission gives circuit roaming freedom</li>
+          <li>F1 Fanzone has simulators and merch villages</li>
+          <li>Suzuka also has a fun amusement park on-circuit</li>
+          <li>Best grandstand: Dunlop or Degner for overtakes</li>
+        </ul>
+      </div>
+
+      <div class="highlight-card" data-icon="⛩️">
+        <span class="cat">Culture</span>
+        <h3>Fushimi Inari Shrine</h3>
+        <p>Thousands of vermillion torii gates climbing a sacred mountain in Kyoto. Free to visit, open 24 hours. Go at sunrise or late evening to avoid the crowds. Deeply spiritual, visually stunning.</p>
+        <ul>
+          <li>Full summit hike takes ~2–3 hours return</li>
+          <li>Dozens of sub-shrines along the path</li>
+          <li>Fox statues (kitsune) are sacred here</li>
+          <li>Best lit at golden hour</li>
+        </ul>
+      </div>
+
+      <div class="highlight-card" data-icon="🎮">
+        <span class="cat">Theme Park</span>
+        <h3>Super Nintendo World</h3>
+        <p>Inside USJ, this is arguably the most immersive theme park land ever built. Every surface is interactive — you wear a Power-Up Band that tracks coins and bosses. Mario Kart: Bowser's Challenge is astonishing.</p>
+        <ul>
+          <li>Timed-entry tickets required (get via USJ app)</li>
+          <li>Donkey Kong Country opened Dec 2024 — go early</li>
+          <li>Power-Up Band wristband ~¥4,100 extra</li>
+          <li>Express Pass = guaranteed Nintendo World access</li>
+        </ul>
+      </div>
+
+      <div class="highlight-card" data-icon="🗼">
+        <span class="cat">Iconic Tokyo</span>
+        <h3>Shibuya Crossing + Sky</h3>
+        <p>The world's busiest pedestrian scramble crossing is best seen from above at Starbucks Shibuya or from Shibuya Sky's open-air rooftop deck. Then descend into the madness below.</p>
+        <ul>
+          <li>Shibuya Sky sunset is one of Tokyo's best views</li>
+          <li>Book Sky tickets in advance online</li>
+          <li>Nearby: Shibuya Cyberspace in Shibuya PARCO</li>
+        </ul>
+      </div>
+
+      <div class="highlight-card" data-icon="🤖">
+        <span class="cat">Anime + Gundam</span>
+        <h3>Unicorn Gundam, Odaiba</h3>
+        <p>An 18-metre-tall life-sized Unicorn Gundam stands outside DiverCity Tokyo Plaza in Odaiba, performing scheduled light and transformation shows. A pilgrimage for any mecha fan.</p>
+        <ul>
+          <li>Free to view, show times posted at the venue</li>
+          <li>Gundam Base Tokyo inside has 2,000+ kits for sale</li>
+          <li>Odaiba has stunning Rainbow Bridge night views</li>
+        </ul>
+      </div>
+
+      <div class="highlight-card" data-icon="🌿">
+        <span class="cat">Anime + Art</span>
+        <h3>Ghibli Museum</h3>
+        <p>A magical museum in Mitaka (western Tokyo), personally overseen by Hayao Miyazaki. A giant Totoro guards the entrance. The rooftop garden features the robot soldier from Castle in the Sky. Book one month exactly before you visit — tickets sell out in minutes.</p>
+        <ul>
+          <li>Tickets released 1 month prior at 10am JST</li>
+          <li>Exclusive short films shown only here</li>
+          <li>Gift shop has items unavailable anywhere else</li>
+          <li>No photography inside</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section>
+  <div class="container">
+    <div class="section-label">Financial Planning</div>
+    <div class="section-title">Budget Breakdown</div>
+    <p style="color:var(--muted); font-size:12px; margin-bottom:32px; max-width:600px;">All figures in USD. Based on 3 people, 15 days. "Comfortable" tier = nice hotels, restaurant meals, generous shopping fund, no major compromises. F1 tickets and theme parks are shared costs.</p>
+
+    <div class="budget-wrapper">
+      <!-- Left: cost table -->
+      <div>
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th style="text-align:right">Total (3 pax)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>✈️ Return Flights (3 people, economy)</td>
+              <td class="amount">$3,600</td>
+            </tr>
+            <tr>
+              <td>🏨 Accommodation (15 nights, mid-range hotels)</td>
+              <td class="amount">$4,500</td>
+            </tr>
+            <tr>
+              <td>🚄 JR Passes + Local Transport (each)</td>
+              <td class="amount">$1,800</td>
+            </tr>
+            <tr>
+              <td>🍜 Food & Dining (3 meals/day each)</td>
+              <td class="amount">$2,700</td>
+            </tr>
+            <tr>
+              <td>🏎️ F1 Suzuka (race weekend tickets, 3 pax)</td>
+              <td class="amount">$1,800</td>
+            </tr>
+            <tr>
+              <td>🏰 Tokyo Disneyland (3 pax, 1 day)</td>
+              <td class="amount">$270</td>
+            </tr>
+            <tr>
+              <td>🎮 Universal Studios Japan + Express Pass (3)</td>
+              <td class="amount">$600</td>
+            </tr>
+            <tr>
+              <td>⛩️ Attractions, museums, Ghibli (est.)</td>
+              <td class="amount">$450</td>
+            </tr>
+            <tr>
+              <td>🛍️ Shopping Budget (anime, merch, fashion)</td>
+              <td class="amount">$2,400</td>
+            </tr>
+            <tr>
+              <td>📦 Shipping home (EMS/Yamato from Japan)</td>
+              <td class="amount">$600</td>
+            </tr>
+            <tr>
+              <td>🩺 Travel Insurance (3 people)</td>
+              <td class="amount">$300</td>
+            </tr>
+            <tr>
+              <td>📱 Pocket WiFi / SIM cards (3)</td>
+              <td class="amount">$120</td>
+            </tr>
+            <tr>
+              <td>💰 Buffer / Unexpected (10%)</td>
+              <td class="amount">$1,914</td>
+            </tr>
+            <tr class="total-row">
+              <td><strong>TOTAL TRIP COST</strong></td>
+              <td class="amount"><strong>~$21,054</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="color:var(--muted); font-size:10px; margin-top:12px; line-height:1.6;">Per person: ~$7,018. F1 ticket tier assumed: grandstand (B/C stand, ~$200–350/person for weekend). Shopping budget is intentionally generous for anime hauls and merchandise shipping.</p>
+      </div>
+
+      <!-- Right: tiers -->
+      <div class="savings-panel">
+        <h3>Budget Tiers</h3>
+
+        <div class="savings-tier budget">
+          <span class="tier-label">Economy Mode</span>
+          <span class="amount">$12,000</span>
+          <div class="per-person">~$4,000 per person</div>
+          <div class="sub">Budget flights, capsule hotels for some nights, konbini meals, general admission F1, no Express Pass. Still an incredible trip.</div>
+        </div>
+
+        <div class="savings-tier comfort">
+          <span class="tier-label">Comfortable Freedom ⭐ Recommended</span>
+          <span class="amount">$21,000</span>
+          <div class="per-person">~$7,000 per person</div>
+          <div class="sub">Mid-range hotels, restaurant dining, F1 grandstand, Express Passes, ¥800 USD/person shopping fund. The sweet spot.</div>
+        </div>
+
+        <div class="savings-tier luxe">
+          <span class="tier-label">Full Luxury</span>
+          <span class="amount">$36,000+</span>
+          <div class="per-person">~$12,000+ per person</div>
+          <div class="sub">Luxury hotels or ryokans, F1 Champions Club / hospitality, private guides, omakase dinners nightly. No compromises, no limits.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly savings -->
+    <div class="divider"><span>Monthly Savings Targets</span></div>
+    <p style="color:var(--muted); font-size:12px; margin-bottom:20px;">How much each person needs to save per month to hit their target. Start saving now and you'll arrive stress-free.</p>
+
+    <div class="monthly-grid">
+      <div class="monthly-box budget">
+        <span class="label">Economy Tier · Per Person</span>
+        <span class="amount">$135</span>
+        <span class="per">per person / month</span>
+        <span class="note">Saving $4,000/person over 30 months</span>
+      </div>
+      <div class="monthly-box comfort">
+        <span class="label">Comfortable · Per Person ⭐</span>
+        <span class="amount">$233</span>
+        <span class="per">per person / month</span>
+        <span class="note">Saving $7,000/person over 30 months</span>
+      </div>
+      <div class="monthly-box luxe">
+        <span class="label">Luxury · Per Person</span>
+        <span class="amount">$400</span>
+        <span class="per">per person / month</span>
+        <span class="note">Saving $12,000/person over 30 months</span>
+      </div>
+    </div>
+
+    <div style="background:var(--panel); border:1px solid var(--gold); border-left: 3px solid var(--gold); padding: 20px 24px; margin-top:24px;">
+      <p style="font-size:12px; color:var(--gold-light); line-height:1.7;">
+        💡 <strong>Pro Tip:</strong> Open a dedicated Japan trip savings account right now and set up automatic transfers. Even €150–$200/month per person over 2–3 years will more than cover a comfortable trip — with money left for shipping boxes of anime loot home. Booking flights and F1 tickets 6–9 months ahead also saves significantly vs. last minute.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PLANNING TIMELINE -->
+<section>
+  <div class="container">
+    <div class="section-label">Booking Countdown</div>
+    <div class="section-title">When to Book What</div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="t-when">NOW → 30 Months Before</span>
+        <h4>Start Saving · Research Begins</h4>
+        <p>Open a dedicated savings account. Start researching hotels near Suzuka Circuit. Monitor flight prices on Google Flights with alerts set for Tokyo routes. Lock in the trip dates.</p>
+      </div>
+      <div class="tl-item">
+        <span class="t-when">12–18 Months Before</span>
+        <h4>Book Flights + Suzuka Hotels</h4>
+        <p>F1 weekend accommodations near Suzuka sell out extremely fast — often 12+ months ahead. Book flights as soon as you see a good fare. Aim for shoulder season pricing outside the race weekend dates.</p>
+      </div>
+      <div class="tl-item">
+        <span class="t-when">9–12 Months Before</span>
+        <h4>F1 Tickets + JR Pass Research</h4>
+        <p>F1 Experiences (official ticket packages) and japan.gp open sales well in advance. Choose between grandstand and general admission based on budget. Research JR Pass vs regional passes — JR Pass saves money if visiting Tokyo, Kyoto, Osaka, and Nagoya (near Suzuka).</p>
+      </div>
+      <div class="tl-item">
+        <span class="t-when">3–4 Months Before</span>
+        <h4>Book All Tokyo Hotels + USJ Tickets</h4>
+        <p>USJ tickets open 60 days in advance — set a reminder and book the moment they become available, especially Express Passes. Tokyo Disneyland tickets also book via Klook or official site. Book non-Suzuka accommodation.</p>
+      </div>
+      <div class="tl-item">
+        <span class="t-when">1 Month Before (Exact Day)</span>
+        <h4>Ghibli Museum Tickets 🚨</h4>
+        <p>Ghibli Museum tickets are released exactly one month in advance at 10am Japan time. Set multiple alarms. They sell out in minutes. This is the single most time-critical booking of the entire trip.</p>
+      </div>
+      <div class="tl-item">
+        <span class="t-when">2–4 Weeks Before</span>
+        <h4>Final Prep</h4>
+        <p>Order Suica card online if possible. Download Google Maps offline for Japan. Set up a Japan-compatible cash strategy (7-Eleven ATMs accept international cards). Research luggage forwarding services (Yamato takkyubin) between cities. Confirm all travel authorizations / visas for your country.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section>
+  <div class="container">
+    <div class="section-label">Insider Knowledge</div>
+    <div class="section-title">Tips for This Exact Trip</div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <span class="t-num">01</span>
+        <h4>Ship Your Haul Home</h4>
+        <p>Japan Post EMS and Yamato Transport (takkyubin) both ship packages internationally. Pack a spare foldable bag or buy one — anime figures and merch add up fast. Shipping a large box home is cheaper than an extra checked luggage fee.</p>
+      </div>
+      <div class="tip-card">
+        <span class="t-num">02</span>
+        <h4>IC Card Is Everything</h4>
+        <p>The Suica card (rechargeable IC card) works on virtually every train, bus, and subway in Japan. It also works at 7-Eleven, vending machines, and many restaurants. Load ¥5,000–10,000 at the start and reload as needed.</p>
+      </div>
+      <div class="tip-card">
+        <span class="t-num">03</span>
+        <h4>Suzuka: Go General Admission</h4>
+        <p>General admission at Suzuka lets you roam the whole circuit and find the best vantage points. The 130R and S-Curves on foot are spectacular. Grandstands give a fixed premium view — choose based on your preference.</p>
+      </div>
+      <div class="tip-card">
+        <span class="t-num">04</span>
+        <h4>Cherry Blossom Timing</h4>
+        <p>Late March to early April is peak sakura season. Kyoto's Maruyama Park and Tokyo's Shinjuku Gyoen are stunning. The race weekend often coincides with peak bloom — one of the most beautiful times of year in Japan.</p>
+      </div>
+      <div class="tip-card">
+        <span class="t-num">05</span>
+        <h4>USJ: App First, Rides Second</h4>
+        <p>Download the Universal Studios Japan app before you arrive. As soon as the park opens, immediately reserve your Super Nintendo World Timed Entry slot on the app. These go by 10:30am on busy days. Nintendo World is worth every minute.</p>
+      </div>
+      <div class="tip-card">
+        <span class="t-num">06</span>
+        <h4>Konbini Are Your Friend</h4>
+        <p>Japanese convenience stores (7-Eleven, FamilyMart, Lawson) sell genuinely excellent food — onigiri, sandwiches, hot foods, desserts — for ¥200–600. Use them for quick breakfasts and late-night snacks to save the restaurant budget for proper meals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <span class="jp">日本</span>
+    <p style="letter-spacing:4px; text-transform: uppercase; font-size: 10px;">The trip of a lifetime, planned three years in advance</p>
+    <p style="margin-top: 8px; font-size: 10px; color: rgba(120,130,150,0.5);">Budget figures in USD · Based on 2025/2026 pricing · Adjust for inflation & currency fluctuations · All prices approximate</p>
+  </div>
+</footer>
+
+</body>
+</html>
